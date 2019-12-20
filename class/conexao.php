@@ -5,7 +5,7 @@
     $sistema = new Sistema;
 
     $host = "localhost";
-    $dbname = "escola";
+    $dbname = "boletins";
     $user = "root";
     $password = "";
 
