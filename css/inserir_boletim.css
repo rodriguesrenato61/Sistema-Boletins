@@ -1,0 +1,25 @@
+
+#inserir_boletim{
+    margin-top: 100px;
+    width: 500px;
+    height: 200px;
+}
+
+#div_title{
+    font-size: 20pt;
+    text-align: left;
+}
+
+#div_body{
+    margin-top: 30px;
+    text-align: center;
+}
+
+#inserir{
+    margin-top: 20px;
+    width: 200px;
+}
+
+.msg-erro{
+    margin-bottom: 10px;
+}

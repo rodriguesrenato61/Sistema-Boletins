@@ -1,0 +1,13 @@
+
+#disciplinas{
+    margin-top: 100px;
+}
+
+#disciplinas_search{
+    margin-top: 50px;
+}
+
+#div_tabela{
+    overflow-x: auto;
+    height: 390px;
+}
