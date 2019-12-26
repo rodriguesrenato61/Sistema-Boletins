@@ -5,9 +5,9 @@
     $sistema = new Sistema;
 
     $host = "localhost";
-    $dbname = "boletins";
+    $dbname = "escola";
     $user = "root";
-    $password = "";
+    $password = "d3s1p6g6";
 
     $sistema->conectar($host, $dbname, $user, $password);
 

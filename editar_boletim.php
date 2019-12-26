@@ -22,8 +22,8 @@
 
             <!--corpo da página-->
             <div class="container" id="editar_boletim">
-                <form method="POST" action="processa.php">
-                    <input type="hidden" name="operacao" value="6">
+                <form method="POST">
+                    <input type="hidden" name="operacao" value="2">
                     <div id="div_title">
                         Editar boletim
                     </div>
@@ -34,8 +34,8 @@
                             $registros = Boletim::exibir($id, null, null, 0);
                             while($registro = $registros->fetch()){
                                 $matricula = $registro['matricula'];
-                                $aluno = Utf8::encode($registro['aluno']);
-                                $disciplina = Utf8::encode($registro['disciplina']);
+                                $aluno = $registro['aluno'];
+                                $disciplina = $registro['disciplina'];
                                 $codigo = $registro['codigo'];
                                 $nota1 = $registro['nota1'];
                                 $nota2 = $registro['nota2'];
@@ -55,22 +55,14 @@
                         <div class="form-group">
                             <input type="text" class="form-control" id="nota1" name="nota1" placeholder="Nota 1" <?php echo("value='".$nota1."'"); ?>>
                         </div>
-                        <div id="n1-msg-erro" class="msg-erro bg-danger text-white">
-                        </div>
                         <div class="form-group">
                             <input type="text" class="form-control" id="nota2" name="nota2" placeholder="Nota 2" <?php echo("value='".$nota2."'"); ?>>
-                        </div>
-                        <div id="n2-msg-erro" class="msg-erro bg-danger text-white">
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" id="nota3" name="nota3" placeholder="Nota 3" <?php echo("value='".$nota3."'"); ?>>
                         </div>
-                        <div id="n3-msg-erro" class="msg-erro bg-danger text-white">
-                        </div>
                         <div class="form-group">
                             <input type="text" class="form-control" id="nota4" name="nota4" placeholder="Nota 4" <?php echo("value='".$nota4."'"); ?>>
-                        </div>
-                        <div id="n4-msg-erro" class="msg-erro bg-danger text-white">
                         </div>
 		                <button type="submit" class="btn btn-primary mb-2" id="salvar">Salvar</button>
                     <?php

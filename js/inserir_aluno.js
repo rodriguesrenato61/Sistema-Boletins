@@ -3,16 +3,7 @@ $(document).ready(function(){
     var nome = $('#nome');
 
     var inserir = $('#inserir');
-/*
-    nome.bind('focusout', function(){
 
-        $.ajax({
-            type: "GET",
-            dataType: "JSON",
-            url: "json/alunos.php?operacao=1&nome="+nome.val(),
-            success: valida_aluno
-        });
-    });*/
     
     inserir.click(function(){
         if(nome.val() != ""){
@@ -29,24 +20,7 @@ $(document).ready(function(){
         
 });
 
-/*
-function valida_aluno(data){
-    var linhas;
-    $.each(data, function(i, alunos){
 
-        linhas = parseInt(alunos.linhas);
-
-        if(linhas > 0){
-        
-            alert('Este aluno já está registrado ');
-            
-        }
-            
-        
-    });
-
-}
-*/
 function inserir_aluno(data){
     var linhas;
     $.each(data, function(i, alunos){
@@ -65,4 +39,5 @@ function inserir_aluno(data){
         }
 
 }
+
 

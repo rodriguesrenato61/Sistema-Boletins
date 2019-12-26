@@ -1,7 +1,6 @@
 <?php
 
     include_once('conexao.php');
-    include_once('Utf8.php');
 
     Class Boletim{
 
@@ -17,11 +16,11 @@
             $i = 0;
 
             if($aluno != null){
-                $clausula[$i] = "aluno LIKE '%".Utf8::decode($aluno)."%'";
+                $clausula[$i] = "aluno LIKE '%".$aluno."%'";
                 $i++;
             }
             if($disciplina != null){
-                $clausula[$i] = "disciplina LIKE '%".Utf8::decode($disciplina)."%'";
+                $clausula[$i] = "disciplina LIKE '%".$disciplina."%'";
                 $i++;
             }
             $id = (int) $id;
@@ -39,7 +38,7 @@
                         $clausula[$i] = "situacao = 'Reprovado'";
                     break;
                     case 3:
-                        $clausula[$i] = "situacao = '".Utf8::decode('Recuperação')."'";
+                        $clausula[$i] = "situacao = 'Recuperação'";
                     break;
                 }
                 $i++;
@@ -79,16 +78,14 @@
 
         }
 
-        public static function editar($id, $aluno, $disciplina, $nota1, $nota2, $nota3, $nota4){
+        public static function editar($id, $nota1, $nota2, $nota3, $nota4){
 
             global $sistema;
 
             $pdo = $sistema->getPdo();
 
-            $sql = $pdo->prepare("CALL update_aluno_disciplina(:id, :aluno, :disciplina, :nota1, :nota2, :nota3, :nota4)");
+            $sql = $pdo->prepare("CALL update_aluno_disciplina(:id, :nota1, :nota2, :nota3, :nota4)");
             $sql->bindValue(":id", (int) $id);
-            $sql->bindValue(":aluno", (int) $aluno);
-            $sql->bindValue(":disciplina", (int) $disciplina);
             $sql->bindValue(":nota1", (float) $nota1);
             $sql->bindValue(":nota2", (float) $nota2);
             $sql->bindValue(":nota3", (float) $nota3);

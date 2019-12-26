@@ -75,6 +75,40 @@
                 }
             
             break;
+            
+            case 4:
+
+                if(isset($_GET['matricula']) && isset($_GET['nome'])){
+
+                    $matricula = $_GET['matricula'];
+                    $nome = $_GET['nome'];
+                    
+                    $registros = Aluno::exibir($matricula, null, $nome, 0);
+                    
+                    if($registros->rowCount() > 0){
+                        $alunos[] = array(
+                            'matricula'=>$matricula,
+                            'nome'=>$nome,
+                            'msg'=>"Erro, esse aluno já está cadastrado!"
+                        );
+                    }else{
+
+                        Aluno::editar($matricula, $nome);
+                        
+                        $alunos[] = array(
+                            'matricula'=>$matricula,
+                            'nome'=>$nome,
+                            'msg'=>"Aluno atualizado com sucesso!"
+                        );
+                        
+                        
+                    }
+                    
+                    echo json_encode($alunos);
+
+                }
+
+            break;
 
         }
 

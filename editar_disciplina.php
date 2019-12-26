@@ -22,7 +22,7 @@
 
             <!--corpo da página-->
             <div class="container" id="editar_disciplina">
-                <form method="POST" action="processa.php">
+                <form method="POST">
                     <input type="hidden" name="operacao" value="5">
                     <div id="div_title">
                         Editar Disciplina
@@ -34,7 +34,7 @@
                                     $disciplina = $_GET['codigo'];
                                     $registros = Disciplina::exibir($disciplina, null, null, 1);
                                     while($registro = $registros->fetch()){
-                                        $nome = Utf8::encode($registro['disciplina']);
+                                        $nome = $registro['disciplina'];
                                     }
                                     echo("<input type='hidden' id='codigo' name='codigo' value='".$disciplina."'>");
                                     echo("<input class='form-control' id='nome' name='nome' placeholder='Nome' value='".$nome."'>");

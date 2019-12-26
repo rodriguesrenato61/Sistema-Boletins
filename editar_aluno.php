@@ -16,7 +16,7 @@
 
             <!--corpo da página-->
             <div class="container" id="editar_aluno">
-                <form method="POST" action="processa.php">
+                <form method="POST">
                     <input type="hidden" name="operacao" value="4">
                     <div id="div_title">
                         Editar Aluno
@@ -31,7 +31,7 @@
                                     $aluno = $_GET['matricula'];
                                     $registros = Aluno::exibir($aluno, null, null, 1);
                                     while($registro = $registros->fetch()){
-                                        $nome = Utf8::encode($registro['aluno']);
+                                        $nome = $registro['aluno'];
                                     }
                                     echo("<input type='hidden' name='matricula' id='matricula' value='".$aluno."'>");
                                     echo("<input class='form-control' id='nome' name='nome' placeholder='Nome' value='".$nome."'>");

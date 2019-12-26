@@ -1,123 +1,90 @@
 
 $(document).ready(function(){
-
-    var validaAluno = true;
-
-    var validaDisciplina = true;
+    
+    var id = $('#id');
 
     var nota1 = $('#nota1');
 
-    var validaN1 = true;
-
     var nota2 = $('#nota2');
-
-    var validaN2 = true;
 
     var nota3 = $('#nota3');
 
-    var validaN3 = true;
-
     var nota4 = $('#nota4');
 
-    var validaN4 = true;
-
     var salvar = $('#salvar');
-
-    salvar.prop('disabled', true);
-
-    nota1.bind('focus', function(){
-        validaN1 = false;
-        valida_boletim(validaAluno, validaDisciplina, validaN1, validaN2, validaN3, validaN4);
-    });
-
-    nota1.bind('focusout', function(){
-
-        var n1 = parseFloat(nota1.val());
-
-        if(n1 >= 0 && n1 <= 10){
-            $('#n1-msg-erro').html('');
-            validaN1 = true;
-            valida_boletim(validaAluno, validaDisciplina, validaN1, validaN2, validaN3, validaN4);
-        }else{
-            $('#n1-msg-erro').html('Digite um valor entre 0 e 10');
-            validaN1 = false;
-            valida_boletim(validaAluno, validaDisciplina, validaN1, validaN2, validaN3, validaN4);
-        }
-
-    });
-
-    nota2.bind('focus', function(){
-        validaN2 = false;
-        valida_boletim(validaAluno, validaDisciplina, validaN1, validaN2, validaN3, validaN4);
-    });
-
-    nota2.bind('focusout', function(){
-
-        var n2 = parseFloat(nota2.val());
-
-        if(n2 >= 0 && n2 <= 10){
-            $('#n2-msg-erro').html('');
-            validaN2 = true;
-            valida_boletim(validaAluno, validaDisciplina, validaN1, validaN2, validaN3, validaN4);
-        }else{
-            $('#n2-msg-erro').html('Digite um valor entre 0 e 10');
-            validaN2 = false;
-            valida_boletim(validaAluno, validaDisciplina, validaN1, validaN2, validaN3, validaN4);
-        }
-
-    });
-
-    nota3.bind('focus', function(){
-        validaN3 = false;
-        valida_boletim(validaAluno, validaDisciplina, validaN1, validaN2, validaN3, validaN4);
-    });
-
-    nota3.bind('focusout', function(){
-
-        var n3 = parseFloat(nota3.val());
-
-        if(n3 >= 0 && n3 <= 10){
-            $('#n3-msg-erro').html('');
-            validaN3 = true;
-            valida_boletim(validaAluno, validaDisciplina, validaN1, validaN2, validaN3, validaN4);
-        }else{
-            $('#n3-msg-erro').html('Digite um valor entre 0 e 10');
-            validaN3 = false;
-            valida_boletim(validaAluno, validaDisciplina, validaN1, validaN2, validaN3, validaN4);
-        }
-
-    });
-
-    nota4.bind('focus', function(){
-        validaN4 = false;
-        valida_boletim(validaAluno, validaDisciplina, validaN1, validaN2, validaN3, validaN4);
-
-    });
-
-    nota4.bind('focusout', function(){
-
-        var n4 = parseFloat(nota4.val());
-
-        if(n4 >= 0 && n4 <= 10){
-            $('#n4-msg-erro').html('');
-            validaN4 = true;
-            valida_boletim(validaAluno, validaDisciplina, validaN1, validaN2, validaN3, validaN4);
-        }else{
-            $('#n4-msg-erro').html('Digite um valor entre 0 e 10');
-            validaN4 = false;
-            valida_boletim(validaAluno, validaDisciplina, validaN1, validaN2, validaN3, validaN4);
-        }
-
+    
+    salvar.click(function(){
+        salvar_boletim(id.val(), nota1.val(), nota2.val(), nota3.val(), nota4.val());
     });
 
     
 });
 
+function valida_nota(nota){
+    var retorno;
+    nota = parseFloat(nota);
 
-function valida_boletim(aluno, disciplina, nota1, nota2, nota3, nota4){
-    if(aluno == true && disciplina == true && nota1 == true && nota2 == true && nota3 == true && nota4 == true){
-        $('#salvar').attr('disabled', false);
+    if(nota >= 0 && nota <= 10){
+        retorno = true;
     }else{
-        $('#salvar').attr('disabled', true);
+        retorno = false;
     }
+    return retorno;    
+}
+
+function salvar_boletim(id, nota1, nota2, nota3, nota4){
+    var html = "Erro!";
+    var nota1_valida, nota2_valida, nota3_valida, nota4_valida;
+    
+    nota1_valida = valida_nota(nota1);
+    
+    if(!nota1_valida){
+        html += "\nNota 1 precisa ser um valor de 0 a 10!";
+    }
+    
+    nota2_valida = valida_nota(nota2);
+    
+    if(!nota2_valida){
+        html += "\nNota 2 precisa ser um valor de 0 a 10!";
+    }
+    
+    nota3_valida = valida_nota(nota3);
+    
+    if(!nota3_valida){
+        html += "\nNota 3 precisa ser um valor de 0 a 10!";
+    }
+    
+    nota4_valida = valida_nota(nota4);
+    
+    if(!nota4_valida){
+        html += "\nNota 4 precisa ser um valor de 0 a 10!";
+    }
+    
+    if(nota1 != "" && nota2 != "" && nota3 != "" && nota4 != ""){
+    
+        if(nota1_valida && nota2_valida && nota3_valida && nota4_valida){
+            
+            $.ajax({
+                type: "GET",
+                dataType: "JSON",
+                url: "json/boletins.php?operacao=2&id="+id+"&nota1="+nota1+"&nota2="+nota2+"&nota3="+nota3+"&nota4="+nota4,
+                success: valida_atualizacao
+            });
+            
+        }else{
+            alert(html);
+        }
+    }else{
+        alert("Preencha todos os campos!");
+    }
+}
+
+function valida_atualizacao(data){
+    var msg;
+    
+    $.each(data, function(i, boletins){
+        msg = boletins.msg;
+    });
+    alert(msg);
+    $(location).attr('href', 'http://localhost/curso/boletins.php');
 }

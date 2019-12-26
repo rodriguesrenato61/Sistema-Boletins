@@ -1,9 +1,9 @@
 <?php
 
     include_once('conexao.php');
-    include_once('Utf8.php');
 
     class Aluno{
+        
 
         public static function exibir($matricula, $nome, $aluno, $status_matricula){
 
@@ -17,7 +17,7 @@
             $i = 0;
 
             if($nome != null){
-                $clausula[$i] = "aluno LIKE '%".Utf8::decode($nome)."%'";
+                $clausula[$i] = "aluno LIKE '%".$nome."%'";
                 $i++;
             }
 
@@ -33,7 +33,7 @@
             }
 
             if($aluno != null){
-                $clausula[$i] = "aluno = '".Utf8::decode($aluno)."'";
+                $clausula[$i] = "aluno = '".$aluno."'";
                 $i++;
             }
 
@@ -61,7 +61,7 @@
             $pdo = $sistema->getPdo();
 
             $sql = $pdo->prepare("CALL insert_aluno(:nome)");
-            $sql->bindValue(":nome", Utf8::decode($nome));
+            $sql->bindValue(":nome", $nome);
             $sql->execute();
         }
 
@@ -73,7 +73,7 @@
 
             $sql = $pdo->prepare("CALL update_aluno(:matricula, :nome)");
             $sql->bindValue(":matricula", (int) $matricula);
-            $sql->bindValue(":nome", Utf8::decode($nome));
+            $sql->bindValue(":nome", $nome);
             $sql->execute();
         }
 
@@ -88,6 +88,8 @@
 
             $sql->execute();
         }
+        
+        
 
     }
 

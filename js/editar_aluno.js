@@ -5,40 +5,41 @@ $(document).ready(function(){
     var matricula = $('#matricula');
 
     var salvar = $('#salvar');
-
-    salvar.attr('disabled', true);
-
-    nome.bind('focus', function(){
-        salvar.attr('disabled', true);
+    
+    salvar.click(function(){
+        atualizar(matricula.val(), nome.val());
     });
 
-    nome.bind('focusout', function(){
-
-        if(nome.val() != ""){
-            $.ajax({
-                type: "GET",
-                dataType: "JSON",
-                url: "json/alunos.php?operacao=2&matricula="+matricula.val()+"&nome="+nome.val(),
-                success: valida_aluno
-            });
-        }else{
-            alert("Insira o nome");
-            salvar.attr('disabled', true);
-        }
-
-    });
 });
+    
 
 function valida_aluno(data){
-    var linhas;
+    var msg;
 
     $.each(data, function(i, alunos){
-        linhas = parseInt(alunos.linhas);
-        if(linhas > 0){
-            alert("Esse nome já existe");
-            $('#salvar').attr('disabled', true);
-        }else{
-            $('#salvar').attr('disabled', false);
-        }
+        msg = alunos.msg;
     });
+    
+    if(msg == "Aluno atualizado com sucesso!"){
+        alert(msg);
+        $(location).attr('href', 'http://localhost/curso/index.php');
+            
+    }else{
+        alert(msg);
+    }
+    
+}
+
+function atualizar(matricula, nome){
+    
+    if(nome != ""){
+        $.ajax({
+                type: "GET",
+                dataType: "JSON",
+                url: "json/alunos.php?operacao=4&matricula="+matricula+"&nome="+nome,
+                success: valida_aluno
+            });
+    }else{
+        alert("Preencha o nome!");
+    }
 }

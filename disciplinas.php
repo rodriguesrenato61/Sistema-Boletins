@@ -36,7 +36,7 @@
                         <!-- Modal -->
                         <div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                             <form method="POST" action="processa.php">
-                                <input type="hidden" name="operacao" value="8">
+                                <input type="hidden" name="operacao" value="2">
                                 <input type="hidden" name="codigo" value="<?php echo($_POST['remover']); ?>">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -132,7 +132,7 @@
 
                         echo('<tr>');
                         echo('<td>'.$registro['codigo'].'</td>');
-                        echo('<td>'.Utf8::encode($registro['disciplina']).'</td>');
+                        echo('<td>'.$registro['disciplina'].'</td>');
                         echo('<td>'.$registro['alunos'].'</td>');
                         echo('<td>'.$registro['aprovados'].'</td>');
                         echo('<td>'.$registro['reprovados'].'</td>');

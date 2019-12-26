@@ -42,7 +42,7 @@
     
                     $disciplinas[] = array(
                         'codigo'=>$registro['codigo'],
-                        'disciplina'=>Utf8::encode($registro['nome'])
+                        'disciplina'=>$registro['nome']
                     );
                 }
     
@@ -81,7 +81,7 @@
 
                     $disciplinas[] = array(
                         'codigo'=>$registro['codigo'],
-                        'disciplina'=>Utf8::encode($registro['nome'])
+                        'disciplina'=>$registro['nome']
                     );
                 }
 
@@ -115,6 +115,35 @@
                 }
 
             break;
+            
+            case 6:
+
+                if(isset($_GET['codigo']) && isset($_GET['nome'])){
+
+                    $codigo = $_GET['codigo'];
+                    $nome = $_GET['nome'];
+                    
+                    $registros = Disciplina::exibir($codigo, null, $nome, 0);
+                    
+                    if($registros->rowCount() > 0){
+                        
+                        $disciplinas[] = array(
+                            'msg'=>"Erro essa disciplina já está cadastrada!"
+                        );
+                    }else{
+
+                        Disciplina::editar($codigo, $nome);
+                        
+                        $disciplinas[] = array(
+                            'msg'=>"Disciplina atualizada com sucesso!"
+                        );
+
+                    }
+                    
+                    echo json_encode($disciplinas);
+                }
+            break;
+
         }
     }
 

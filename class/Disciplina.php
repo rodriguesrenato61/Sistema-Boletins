@@ -1,7 +1,6 @@
 <?php
 
     include_once('conexao.php');
-    include_once('Utf8.php');
 
     Class Disciplina{
 
@@ -17,7 +16,7 @@
             $i = 0;
 
             if($nome != null){
-                $clausula[$i] = "disciplina LIKE '%".Utf8::decode($nome)."%'";
+                $clausula[$i] = "disciplina LIKE '%".$nome."%'";
                 $i++;
             }
 
@@ -33,7 +32,7 @@
             }
 
             if($disciplina != null){
-                $clausula[$i] = "disciplina = '".Utf8::decode($disciplina)."'";
+                $clausula[$i] = "disciplina = '".$disciplina."'";
                 $i++;
             }
 
@@ -61,7 +60,7 @@
             $pdo = $sistema->getPdo();
 
             $sql = $pdo->prepare("CALL insert_disciplina(:nome)");
-            $sql->bindValue(":nome", Utf8::decode($nome));
+            $sql->bindValue(":nome", $nome);
             $sql->execute();
         }
 
@@ -73,7 +72,7 @@
 
             $sql = $pdo->prepare("CALL update_disciplina(:codigo, :nome)");
             $sql->bindValue(":codigo", (int) $codigo);
-            $sql->bindValue(":nome", Utf8::decode($nome));
+            $sql->bindValue(":nome", $nome);
 
             $sql->execute();
         }

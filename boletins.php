@@ -34,7 +34,7 @@
              <!-- Modal -->
              <div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                             <form method="POST" action="processa.php">
-                                <input type="hidden" name="operacao" value="9">
+                                <input type="hidden" name="operacao" value="3">
                                 <input type="hidden" name="id" value="<?php echo($_POST['remover']); ?>">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -175,14 +175,14 @@
 
                         echo('<tr>');
                         echo('<td>'.$registro['matricula'].'</td>');
-                        echo('<td>'.Utf8::encode($registro['aluno']).'</td>');
-                        echo('<td>'.Utf8::encode($registro['disciplina']).'</td>');
+                        echo('<td>'.$registro['aluno'].'</td>');
+                        echo('<td>'.$registro['disciplina'].'</td>');
                         echo('<td>'.$registro['nota1'].'</td>');
                         echo('<td>'.$registro['nota2'].'</td>');
                         echo('<td>'.$registro['nota3'].'</td>');
                         echo('<td>'.$registro['nota4'].'</td>');
                         echo('<td>'.$registro['media'].'</td>');
-                        echo('<td>'.Utf8::encode($registro['situacao']).'</td>');
+                        echo('<td>'.$registro['situacao'].'</td>');
                         echo('<td>');
                         echo("<form method='GET' action='editar_boletim.php'>");
                         echo("<input type='hidden' name='id' value='".$registro['id']."'>");
