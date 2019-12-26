@@ -30,8 +30,6 @@
                             ?>
                             >
                         </div>
-                        <div id="msg-erro" class="bg-danger text-white">
-                        </div>
 		                <button type="submit" class="btn btn-primary mb-2" id="inserir">Inserir</button>
                     </div>                
                 </form>
