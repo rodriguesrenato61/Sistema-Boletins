@@ -50,12 +50,15 @@ Para atualização de um boletim só é possível modificar as notas do registro
 
 ## Deletar um aluno
 
+
 ![deletar aluno](https://github.com/rodriguesrenato61/Sistema-Boletins/blob/master/img/excluir_aluno.png)
 
 ## Deletar uma disciplina
 
+
 ![deletar disciplina](https://github.com/rodriguesrenato61/Sistema-Boletins/blob/master/img/excluir_disciplina.png)
 
 ## Deletar boletim
+
 
 ![deletar boletim](https://github.com/rodriguesrenato61/Sistema-Boletins/blob/master/img/excluir_boletim.png)
