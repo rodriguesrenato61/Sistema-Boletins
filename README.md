@@ -12,3 +12,8 @@ Aqui é possível observar o número de matrícula, o nome, a quantidade de disc
 Nesta página podemos observar o código, nome, quantidade de alunos que fazem cada disciplina, quantidade de alunos aprovados, reprovados e de recuperação. Há também botões para inserir, editar, remover uma disciplina e uma barra de busca para encontrar disciplinas pelo nome.
 
 ![exibindo disciplinas](https://github.com/rodriguesrenato61/Sistema-Boletins/blob/master/img/disciplinas.png)
+
+## Exibindo dados dos boletins
+Aqui podemos visualizar os dados referentes aos boletins como matrícula do aluno, aluno, disciplina, primeira nota, segunda nota, terceira nota, quarta nota, média das notas e a situação que o aluno se encontra nas disciplinas de acordo com sua média de cada uma. Além disso existem butões para inserir, editar, excluir um boletim e uma barra de pesquisa onde podemos pesquisar os boletins por aluno, disciplina e situação.
+
+![exibir boletins](https://github.com/rodriguesrenato61/Sistema-Boletins/blob/master/img/boletins.png)
