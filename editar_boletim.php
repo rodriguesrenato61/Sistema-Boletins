@@ -21,6 +21,7 @@
             ?>
 
             <!--corpo da página-->
+            <a href="boletins.php"><h2><<<<</h2></a>
             <div class="container" id="editar_boletim">
                 <form method="POST">
                     <input type="hidden" name="operacao" value="2">

@@ -13,6 +13,7 @@
             
         </head>
         <body>
+            <a href="index.php"><h2><<<<</h2></a>
 
             <!--corpo da página-->
             <div class="container" id="inserir_aluno">

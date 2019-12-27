@@ -15,6 +15,7 @@
         <body>
 
             <!--corpo da página-->
+            <a href="index.php"><h2><<<<</h2></a>
             <div class="container" id="editar_aluno">
                 <form method="POST">
                     <input type="hidden" name="operacao" value="4">
