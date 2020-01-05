@@ -1,4 +1,40 @@
-
+<?php
+include_once('class/Disciplina.php');
+    $d = new Disciplina;
+            
+                if(isset($_POST['codigo']) && isset($_POST['nome'])){
+                    
+                    $codigo = $_POST['codigo'];
+                    $nome = $_POST['nome'];
+                    
+                    include_once('class/Mensagem.php');
+                    
+                    $m = new Mensagem;
+                    
+                    
+                    if(!empty($nome)){
+                        
+                        $msg = $d->verificar_disponibilidade($codigo, $nome);
+                        
+                        if($msg == "Pode atualizar a disciplina!"){
+                        
+                            $d->editar($codigo, $nome);
+                            $m->setMensagem("Disciplina atualizada com sucesso!");
+                            header("Location: disciplinas.php");
+                        
+                        }else{
+                            
+                            $m->alert($msg);
+                            
+                        }
+                    }else{
+                        
+                        $m->alert("Preencha o nome!");
+                        
+                    }
+                }
+            
+            ?>
     <!DOCTYPE html>
     <html>
         <head>
@@ -14,12 +50,6 @@
         </head>
         <body>
 
-            <?php
-
-                include_once('class/Disciplina.php');
-
-            ?>
-
             <!--corpo da página-->
             <a href="disciplinas.php"><h2><<<<</h2></a>
             <div class="container" id="editar_disciplina">
@@ -33,7 +63,7 @@
                             <?php
                                 if(isset($_GET['codigo'])){
                                     $disciplina = $_GET['codigo'];
-                                    $registros = Disciplina::exibir($disciplina, null, null, 1);
+                                    $registros = $d->exibir($disciplina, null, null, 1);
                                     while($registro = $registros->fetch()){
                                         $nome = $registro['disciplina'];
                                     }

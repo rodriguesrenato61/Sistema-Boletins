@@ -35,6 +35,41 @@
                     </div>                
                 </form>
             </div>
+            
+            <?php
+            
+                if(isset($_POST['nome'])){
+                    $nome = $_POST['nome'];
+                    
+                    include_once('class/Aluno.php');
+                    include_once('class/Mensagem.php');
+                    
+                    $m = new Mensagem;
+                    $a = new Aluno;
+                    
+                    if(!empty($nome)){
+                        
+                        $msg = $a->valida_aluno($nome);
+                        
+                        if($msg == "Pode inserir o aluno!"){
+                        
+                            $a->inserir($nome);
+                            $m->setMensagem("Aluno inserido com sucesso!");
+                            header("Location: index.php");
+                        
+                        }else{
+                            
+                            $m->alert($msg);
+                            
+                        }
+                    }else{
+                        
+                        $m->alert("Preencha o nome!");
+                        
+                    }
+                }
+            
+            ?>
 
             <!--importando o jquery-->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

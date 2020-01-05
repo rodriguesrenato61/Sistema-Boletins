@@ -1,4 +1,15 @@
-
+<?php
+    session_start();
+    
+    include_once('class/Mensagem.php');
+    include_once('class/Boletim.php');
+    
+    $m = new Mensagem;
+    $b = new Boletim;
+    
+    $m->getMensagem();
+    
+?>
     <!DOCTYPE html>
     <html>
         <head>
@@ -21,57 +32,14 @@
         </head>
         <body>
 
-            <?php
-            
-
-                include_once('class/Boletim.php');
-            
-
-            ?>
-
             <!--corpo da página-->
 
-             <!-- Modal -->
-             <div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-                            <form method="POST" action="processa.php">
-                                <input type="hidden" name="operacao" value="3">
-                                <input type="hidden" name="id" value="<?php echo($_POST['remover']); ?>">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="modalLabel">Excluir boletim</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Tem certeza de que deseja excluir este boletim?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                            <button type="submit" class="btn btn-danger">Remover</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <?php
-                        if(isset($_POST['remover'])){
-                            ?>
-                            <script type="text/javascript">
-                    
-                                $(document).ready(function(){
-            
-                                    $('#modal_delete').modal({show:true});
-                                });
-                    
-                            </script>
-                            <?php
-                        }
-                    ?>
-
-
+            <?php
+                if(isset($_POST['remover'])){
+                    $id = $_POST['remover'];
+                    $b->modalExcluir($id);
+                }
+            ?>
 
             <div class="container" id="boletins">
                 <nav class="navbar navbar-light">
@@ -159,16 +127,15 @@
                     <th colspan="2">Ações</th>
                 </tr>
                 <?php
-                
-
+                    
                     if(isset($_GET['aluno']) && isset($_GET['disciplina']) && isset($_GET['situacao'])){
                         $aluno = $_GET['aluno'];
                         $disciplina = $_GET['disciplina'];
                         $situacao = $_GET['situacao'];
 
-                        $registros = Boletim::exibir(0, $aluno, $disciplina, $situacao);
+                        $registros = $b->exibir(0, $aluno, $disciplina, $situacao);
                     }else{
-                        $registros = Boletim::exibir(0, null, null, 0);
+                        $registros = $b->exibir(0, null, null, 0);
                     }
 
                     while($registro = $registros->fetch()){
@@ -203,10 +170,8 @@
                                
                 </table>
                 </div>
-            </div>
 
-            <!--importando nosso javascript-->
-            <script src="js/boletins.js"></script>
+            </div>
     
         </body>
     </html>

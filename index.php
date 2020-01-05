@@ -1,4 +1,16 @@
+<?php
 
+    session_start();
+    
+    include_once('class/Mensagem.php');
+    include_once('class/Aluno.php');
+    
+    $a = new Aluno;
+    $m = new Mensagem;
+    
+    $m->getMensagem();
+    
+?>
     <!DOCTYPE html>
     <html>
         <head>
@@ -14,13 +26,6 @@
         </head>
         <body>
 
-            <?php
-
-                include_once('class/Aluno.php');
-                
-
-            ?>
-
             <!--corpo da página-->
             
             <!--importando o jquery-->
@@ -29,51 +34,16 @@
             <!--importando javascript do bootstrap-->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-
             
-                    <!-- Modal -->
-                        <div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-                            <form method="POST" action="processa.php">
-                                <input type="hidden" name="operacao" value="1">
-                                <input type="hidden" name="matricula" value="<?php echo($_POST['remover']); ?>">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="modalLabel">Excluir aluno</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Tem certeza de que deseja excluir este aluno?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                            <button type="submit" class="btn btn-danger">Remover</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                    <?php
-                        if(isset($_POST['remover'])){
-                            ?>
-                            <script type="text/javascript">
-                    
-                                $(document).ready(function(){
+            <?php
+                if(isset($_POST['remover'])){
+                    $matricula = $_POST['remover'];
+                    $a->modalExcluir($matricula);
+                }
+            ?>
             
-                                    $('#modal_delete').modal({show:true});
-                                });
                     
-                            </script>
-                            <?php
-                        }
-                    ?>
-        
-
-
+            <!-- Barra de links -->
             <div class="container" id="alunos">
                 <nav class="navbar navbar-light">
                     <h1>Alunos</h1>
@@ -81,6 +51,7 @@
                         <button class="btn btn-primary">inserir</button>
                     </a>
                 </nav>
+                
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <ul class="navbar-nav">
                         <li class="nav-item">
@@ -92,6 +63,7 @@
                     </ul>
                 </nav>
 
+                <!-- Formulário de busca -->
                 <form method="GET" class="form-inline" id="alunos_search">   
                     <div class="form-group mx-sm-3 mb-2">
                         <input type="text" class="form-control" name="aluno" id="aluno" placeholder="aluno"
@@ -107,6 +79,8 @@
                     </div>
                     <button type="submit" id="pesquisar" class="btn btn-primary mb-2">Pesquisar</button>
                 </form>
+                
+                <!-- Tabela de registros -->
                 <div id="div_tabela">
                 <table class="table table-striped" id="table_alunos">
                 <tr>
@@ -120,16 +94,15 @@
 
                 </tr>
                     <?php
-                    
-
+                        
                         if(isset($_GET['aluno'])){
 
                             $nome = $_GET['aluno'];
-                            $registros = Aluno::exibir(0, $nome, null, 1);
+                            $registros = $a->exibir(0, $nome, null, 1);
 
                         }else{
 
-                            $registros = Aluno::exibir(0, null, null, 1);
+                            $registros = $a->exibir(0, null, null, 1);
 
                         }
 
@@ -148,11 +121,10 @@
                             echo("<button type='submit' class='btn btn-primary'>Editar</button>");
                             echo("</form>");
                             echo('</td>');
-                            
                             echo('<td>');
                             echo("<form method='POST'>");
                             echo("<input type='hidden' name='remover' value='".$registro['matricula']."'>");
-                            echo("<button type='submit' class='btn btn-danger' data-toggle='modal' data-target='#mymodal'>Remover</button>");
+                            echo("<button type='submit' class='btn btn-danger'>Remover</button>");
                             echo("</form>");
                             echo('</td>');
                             
@@ -163,10 +135,10 @@
                     ?>
                     
                 </table>
+                
                 </div>
+                
             </div>
-    
-            
     
         </body>
     </html>

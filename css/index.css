@@ -11,3 +11,9 @@
     overflow-x: auto;
     height: 390px;
 }
+
+.selecionado{
+    color: green;
+}
+
+

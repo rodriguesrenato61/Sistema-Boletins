@@ -1,4 +1,42 @@
+<?php
 
+    include_once('class/Aluno.php');
+    $a = new Aluno;
+            
+                if(isset($_POST['matricula']) && isset($_POST['nome'])){
+                    
+                    $matricula = $_POST['matricula'];
+                    $nome = $_POST['nome'];
+                    
+                    
+                    include_once('class/Mensagem.php');
+                    
+                    $m = new Mensagem;
+                    
+                    
+                    if(!empty($nome)){
+                        
+                        $msg = $a->verificar_disponibilidade($matricula, $nome);
+                        
+                        if($msg == "Pode atualizar o aluno!"){
+                        
+                            $a->editar($matricula, $nome);
+                            $m->setMensagem("Aluno atualizado com sucesso!");
+                            header("Location: index.php");
+                        
+                        }else{
+                            
+                            $m->alert($msg);
+                            
+                        }
+                    }else{
+                        
+                        $m->alert("Preencha o nome!");
+                        
+                    }
+                }
+            
+            ?>
     <!DOCTYPE html>
     <html>
         <head>
@@ -25,12 +63,10 @@
                     <div id="div_body">
 		                <div class="form-group">
                             <?php
-
-                                include_once('class/Aluno.php');
                             
                                 if(isset($_GET['matricula'])){
                                     $aluno = $_GET['matricula'];
-                                    $registros = Aluno::exibir($aluno, null, null, 1);
+                                    $registros = $a->exibir($aluno, null, null, 1, 1);
                                     while($registro = $registros->fetch()){
                                         $nome = $registro['aluno'];
                                     }

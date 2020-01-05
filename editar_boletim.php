@@ -1,4 +1,45 @@
-
+<?php
+include_once('class/Boletim.php');
+    $b = new Boletim;
+            
+                if(isset($_POST['id']) && isset($_POST['matricula']) && isset($_POST['codigo']) && isset($_POST['nota1']) && isset($_POST['nota2']) && isset($_POST['nota3']) && isset($_POST['nota4'])){
+                    
+                    $id = $_POST['id'];
+                    $disciplina = $_POST['codigo'];
+                    $aluno = $_POST['matricula'];
+                    $nota1 = $_POST['nota1'];
+                    $nota2 = $_POST['nota2'];
+                    $nota3 = $_POST['nota3'];
+                    $nota4 = $_POST['nota4'];
+                    
+                    include_once('class/Mensagem.php');
+                    
+                    $m = new Mensagem;
+                    
+                    if(!empty($nota1) && !empty($nota2) && !empty($nota3) && !empty($nota4)){
+                        
+                        $msg = $b->valida_boletim($aluno, $disciplina, $nota1, $nota2, $nota3, $nota4);
+                        
+                        if($msg == "válido!"){
+                        
+                            $b->editar($id, $nota1, $nota2, $nota3, $nota4);
+                            
+                            $m->setMensagem("Boletim atualizado com sucesso!");
+                            header("Location: boletins.php");
+                        
+                        }else{
+                            
+                            $m->alert($msg);
+                            
+                        }
+                    }else{
+                        
+                        $m->alert("Preencha todos os campos!");
+                        
+                    }
+                }
+            
+            ?>
     <!DOCTYPE html>
     <html>
         <head>
@@ -14,12 +55,6 @@
         </head>
         <body>
 
-            <?php
-
-                include_once('class/Boletim.php');
-
-            ?>
-
             <!--corpo da página-->
             <a href="boletins.php"><h2><<<<</h2></a>
             <div class="container" id="editar_boletim">
@@ -32,7 +67,7 @@
                         <?php
                         if(isset($_GET['id'])){
                             $id = (int) $_GET['id'];
-                            $registros = Boletim::exibir($id, null, null, 0);
+                            $registros = $b->exibir($id, null, null, 0);
                             while($registro = $registros->fetch()){
                                 $matricula = $registro['matricula'];
                                 $aluno = $registro['aluno'];

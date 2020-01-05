@@ -1,10 +1,11 @@
 <?php
 
     include_once('conexao.php');
+    include_once('Mensagem.php');
 
     Class Boletim{
 
-        public static function exibir($id, $aluno, $disciplina, $situacao){
+        public function exibir($id, $aluno, $disciplina, $situacao){
 
             global $sistema;
 
@@ -60,7 +61,7 @@
             return $sql;
         }
 
-        public static function inserir($aluno, $disciplina, $nota1, $nota2, $nota3, $nota4){
+        public function inserir($aluno, $disciplina, $nota1, $nota2, $nota3, $nota4){
 
             global $sistema;
 
@@ -77,8 +78,58 @@
             $sql->execute();
 
         }
+        
+        public function valida_nota($nota){
+            
+            if(is_numeric($nota)){
+                
+                $nota = (float) $nota;
+            
+                if($nota >= 0 && $nota <= 10){
+                
+                    return true;
+                
+                }else{
+                
+                    return false;
+                
+                }
+            }else{
+                
+                return false;
+                
+            }
+        }
+        
+        public function valida_boletim($aluno, $disciplina, $nota1, $nota2, $nota3, $nota4){
+            
+            $aluno = (int) $aluno;
+            
+            $disciplina = (int) $disciplina;
+            
+            $nota1_valida = $this->valida_nota($nota1);
+            
+            $nota2_valida = $this->valida_nota($nota2);
+            
+            $nota3_valida = $this->valida_nota($nota3);
+            
+            $nota4_valida = $this->valida_nota($nota4);
+            
+            if($aluno != 0 && $disciplina != 0 && $nota1_valida && $nota2_valida && $nota3_valida && $nota4_valida){
+                
+                $msg = "válido!";
+                
+            }else{
+                
+                $msg = "Erro, preencha os dados corretamente!";
+                
+            }
+            
+            return $msg;
+        }
 
-        public static function editar($id, $nota1, $nota2, $nota3, $nota4){
+
+        public function editar($id, $nota1, $nota2, $nota3, $nota4){
 
             global $sistema;
 
@@ -95,7 +146,7 @@
 
         }
 
-        public static function excluir($id){
+        public function excluir($id){
 
             global $sistema;
 
@@ -105,6 +156,33 @@
             $sql->bindValue(":id", (int) $id);
 
             $sql->execute();
+        }
+        
+        public function get($id){
+            
+            global $sistema;
+            
+            $pdo = $sistema->getPdo();
+            
+            $sql = $pdo->prepare("SELECT * FROM vw_boletins WHERE id = :id");
+            $sql->bindValue(":id", (int) $id);
+            
+            $sql->execute();
+            
+            $boletim = $sql->fetch();
+            
+            return $boletim;
+        }
+        
+        public function modalExcluir($id){
+            
+            $msg = new Mensagem;
+            
+            $boletim = $this->get($id);
+            
+            $conteudo = "Tem certeza de que deseja excluir o boletim do(a) aluno(a) ".$boletim['aluno']." com a disciplina ".$boletim['disciplina']."?";
+            
+            $msg->modalExcluir("Excluir boletim", $conteudo, "boletins", $id);
         }
 
     }

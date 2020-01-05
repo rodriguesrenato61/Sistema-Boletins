@@ -1,10 +1,11 @@
 <?php
 
     include_once('conexao.php');
+    include_once('Mensagem.php');
 
     Class Disciplina{
 
-        public static function exibir($codigo, $nome, $disciplina, $status_codigo){
+        public function exibir($codigo, $nome, $disciplina, $status_codigo){
 
             global $sistema;
 
@@ -53,7 +54,7 @@
             return $sql;
         }
 
-        public static function inserir($nome){
+        public function inserir($nome){
 
             global $sistema;
 
@@ -63,8 +64,46 @@
             $sql->bindValue(":nome", $nome);
             $sql->execute();
         }
+        
+        public function valida_disciplina($nome){
+            
+            $registros = $this->exibir(0, null, $nome, 0);
+            
+            $linhas = $registros->rowCount();
+            
+            if($linhas > 0){
+                
+                $msg = ("Erro, essa disciplina já está registrada!");
+                
+            }else{
+                
+                $msg = ("Pode inserir a disciplina!");
+                
+            }
+            
+            return $msg;
+        }
+        
+        public function verificar_disponibilidade($codigo, $nome){
+            
+            $registros = $this->exibir($codigo, null, $nome, 0, 0);
+            
+            $linhas = $registros->rowCount();
+            
+            if($linhas > 0){
+                
+                $msg = "Erro, esse nome já está em uso!";
+                
+            }else{
+                
+                $msg = "Pode atualizar a disciplina!";
+                
+            }
+            
+            return $msg;
+        }
 
-        public static function editar($codigo, $nome){
+        public function editar($codigo, $nome){
 
             global $sistema;
 
@@ -77,7 +116,7 @@
             $sql->execute();
         }
 
-        public static function excluir($codigo){
+        public function excluir($codigo){
 
             global $sistema;
 
@@ -89,7 +128,7 @@
             $sql->execute();
         }
 
-        public static function aluno_disciplinas($matricula, $status, $codigo){
+        public function aluno_disciplinas($matricula, $status, $codigo){
 
             global $sistema;
 
@@ -109,6 +148,33 @@
             $sql->execute();
 
             return $sql;
+        }
+        
+        public function get($codigo){
+            
+            global $sistema;
+            
+            $pdo = $sistema->getPdo();
+            
+            $sql = $pdo->prepare("SELECT * FROM disciplinas WHERE codigo = :codigo");
+            $sql->bindValue(":codigo", (int) $codigo);
+            
+            $sql->execute();
+            
+            $disciplina = $sql->fetch();
+            
+            return $disciplina;
+        }
+        
+        public function modalExcluir($codigo){
+            
+            $msg = new Mensagem;
+            
+            $disciplina = $this->get($codigo);
+            
+            $conteudo = "Tem certeza de que deseja excluir a disciplina ".$disciplina['nome']."?";
+            
+            $msg->modalExcluir("Excluir disciplina", $conteudo, "disciplinas", $codigo);
         }
 
     }

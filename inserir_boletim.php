@@ -1,4 +1,43 @@
-
+<?php
+            
+                if(isset($_POST['aluno']) && isset($_POST['disciplina']) && isset($_POST['nota1']) && isset($_POST['nota2']) && isset($_POST['nota3']) && isset($_POST['nota4'])){
+                    
+                    $aluno_id = $_POST['aluno'];
+                    $disciplina_id = $_POST['disciplina'];
+                    $nota1 = $_POST['nota1'];
+                    $nota2 = $_POST['nota2'];
+                    $nota3 = $_POST['nota3'];
+                    $nota4 = $_POST['nota4'];
+                    
+                    include_once('class/Boletim.php');
+                    include_once('class/Mensagem.php');
+                    
+                    $m = new Mensagem;
+                    $b = new Boletim;
+                    
+                    if($aluno_id != "0" && $disciplina_id != "0" && !empty($nota1) && !empty($nota2) && !empty($nota3) && !empty($nota4)){
+                        
+                        $msg = $b->valida_boletim($aluno_id, $disciplina_id, $nota1, $nota2, $nota3, $nota4);
+                        
+                        if($msg == "válido!"){
+                        
+                            $b->inserir($aluno_id, $disciplina_id, $nota1, $nota2, $nota3, $nota4);
+                            $m->setMensagem("Boletim inserido com sucesso!");
+                            header("Location: boletins.php");
+                        
+                        }else{
+                            
+                            $m->alert($msg);
+                            
+                        }
+                    }else{
+                        
+                        $m->alert("Preencha todos os campos!");
+                        
+                    }
+                }
+            
+            ?>
     <!DOCTYPE html>
     <html>
         <head>
@@ -18,6 +57,8 @@
 
                 include_once('class/Aluno.php');
                 include_once('class/Disciplina.php');
+                
+                $d = new Disciplina;
 
             ?>
 
@@ -34,7 +75,8 @@
                             <select class="form-control" id="aluno" name="aluno">
                                 <option value="0">--Aluno--</option>
                                 <?php
-                                    $alunos = Aluno::exibir(0, null, null, 0);
+                                    $a = new Aluno;
+                                    $alunos = $a->exibir(0, null, null, 0, 0);
                                     while($aluno = $alunos->fetch()){
                                         if(isset($_POST['aluno'])){
                                             $nome_aluno = $_POST['aluno'];
@@ -57,7 +99,7 @@
                                 <?php
                                     if(isset($_POST['aluno'])){
                                         if($_POST['aluno'] != "0"){
-                                            $registros = Disciplina::aluno_disciplinas($_POST['aluno'], 0, 0);
+                                            $registros = $d->aluno_disciplinas($_POST['aluno'], 0, 0);
                                             while($registro = $registros->fetch()){
                                                 if(isset($_POST['disciplina'])){
                                                     if($_POST['disciplina'] == $registro['codigo']){
@@ -114,6 +156,10 @@
                     </div>                
                 </form>
             </div>
+            
+            
+            
+            
 
             <!--importando o jquery-->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
