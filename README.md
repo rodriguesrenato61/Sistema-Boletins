@@ -26,7 +26,7 @@ A inserção de um novo aluno é feita garantindo que seu nome não seja igual a
 ## Inserindo disciplina
 A inserção de uma nova disciplina é feita garantindo que seu nome não seja igual a nenhuma outra já cadastrada, se tentar inserir um nome repetido uma mensagem de erro aparecerá e a inserção é cancelada. O número do seu código é gerado automaticamente.
 
-![inserir disciplina](https://github.com/rodriguesrenato61/Sistema-Boletins/blob/master/prints/inserindo_disciplina.png)
+![inserir disciplina](https://github.com/rodriguesrenato61/Sistema-Boletins/blob/master/prints/inserir_disciplina.png)
 
 ## Inserindo boletim
 A inserção de um boletim é feita garantindo que todos os dados sejam inseridos corretamente. Ao escolher o aluno somente as disciplinas que o aluno não faz serão exibidas no campo de escolha da disciplina. Se nenhum aluno ou disciplina for escolhida retornará o erro impedindo a sua inserção, assim como as notas que precisam ser um número que vai de 0 a 10 também são verificadas.
