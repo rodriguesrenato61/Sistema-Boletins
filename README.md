@@ -21,7 +21,7 @@ Aqui podemos visualizar os dados referentes aos boletins como matrícula do alun
 ## Inserindo aluno
 A inserção de um novo aluno é feita garantindo que seu nome não seja igual a nenhum outro aluno já cadastrado, caso tente inserir um nome que já está cadastrado retornará uma mensagem de erro e ele não será inserindo. O número da matrícula é gerado automaticamente.
 
-![inserir aluno](https://github.com/rodriguesrenato61/Sistema-Boletins/blob/master/prints/inserir_aluno.png)
+![inserir aluno](https://github.com/rodriguesrenato61/Sistema-Boletins/blob/master/prints/inserindo_aluno.png)
 
 ## Inserindo disciplina
 A inserção de uma nova disciplina é feita garantindo que seu nome não seja igual a nenhuma outra já cadastrada, se tentar inserir um nome repetido uma mensagem de erro aparecerá e a inserção é cancelada. O número do seu código é gerado automaticamente.
