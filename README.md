@@ -1,7 +1,9 @@
 # Sistema Boletins
+Email: rodriguesrenato61@gmail.com
+Contatos: 98 999812283/ 98 988258639
 Sistema web feito com Php, MySQL, HTML, CSS e javascript para realizar gestão de boletins dos alunos com CRUD.
 Para utilizar o banco de dados importe o arquivo escola.sql para seu phpmyadmim ou qualquer outro SGBD que utilize.
-Para configurar o host, nome, usuário e senha do banco vá em class/conexao.php e faça as configurações de acordo com o banco que você fez. O sistema utiliza bootstrap e jquery por isso é necessário internet para seu funcionamento. Essa pequena aplicação está funcional, e vou adicionando comentários aos códigos ao decorrer do tempo.
+Para configurar o host, nome, usuário e senha do banco vá em class/conexao.php e faça as configurações de acordo com o banco que você fez. O sistema utiliza bootstrap e jquery por isso é necessário internet para seu funcionamento. Essa pequena aplicação já está funcional.
 
 ## Exibindo dados dos alunos
 Aqui é possível observar o número de matrícula, o nome, a quantidade de disciplinas que cada aluno cursa, quantidade de aprovações, quantidade de reprovações e quantidade de recuperações. Além disso há botões para inserir um novo aluno, editar os dados do aluno, removê-lo do sistema e uma barra de busca para encontrar o aluno pelo nome.
