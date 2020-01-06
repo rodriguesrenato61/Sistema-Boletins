@@ -1,9 +1,10 @@
 <?php
 
-	include_once('conexao.php');
+	include_once('conexao.php');//importando a conexão com o banco
 
 	class Mensagem{
 		
+		//função para exibir uma mensagem em forma de alerta do javascript
 		public function alert($msg){
 			
 			echo("<script type='text/javascript'>");
@@ -11,6 +12,7 @@
 			echo("</script>");
 		}
 		
+		//função para setar uma nova mensagem de sessão
 		public function setMensagem($msg){
 			if(isset($_SESSION['msg'])){
 				$_SESSION['msg'] = $msg;
@@ -20,6 +22,7 @@
 			}
 		}
 		
+		//função para exibir a mensagem de sessão em forma de alerta
 		public function getMensagem(){
 			
 			if(isset($_SESSION['msg'])){
@@ -30,6 +33,7 @@
 			}
 		}
 		
+		//função que exibe uma janela modal de exclusão de registro
 		public function modalExcluir($titulo, $msg, $tipo, $valor){
 			?>
 			<!-- Modal de exclusão de um registro -->

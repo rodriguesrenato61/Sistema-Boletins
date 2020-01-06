@@ -1,5 +1,5 @@
 <?php
-            
+                //mesmo esquema usado na inserção de um aluno
                 if(isset($_POST['aluno']) && isset($_POST['disciplina']) && isset($_POST['nota1']) && isset($_POST['nota2']) && isset($_POST['nota3']) && isset($_POST['nota4'])){
                     
                     $aluno_id = $_POST['aluno'];
@@ -76,7 +76,8 @@
                                 <option value="0">--Aluno--</option>
                                 <?php
                                     $a = new Aluno;
-                                    $alunos = $a->exibir(0, null, null, 0, 0);
+                                    $alunos = $a->exibir(0, null, null, 0, 0);//carregando os alunos
+                                    //exibindo os alunos em um select
                                     while($aluno = $alunos->fetch()){
                                         if(isset($_POST['aluno'])){
                                             $nome_aluno = $_POST['aluno'];
@@ -99,7 +100,8 @@
                                 <?php
                                     if(isset($_POST['aluno'])){
                                         if($_POST['aluno'] != "0"){
-                                            $registros = $d->aluno_disciplinas($_POST['aluno'], 0, 0);
+                                            $registros = $d->aluno_disciplinas($_POST['aluno'], 0, 0);//carregando somente as disciplinas que o aluno ainda não faz
+                                            //exibindo as disciplinas em um select
                                             while($registro = $registros->fetch()){
                                                 if(isset($_POST['disciplina'])){
                                                     if($_POST['disciplina'] == $registro['codigo']){

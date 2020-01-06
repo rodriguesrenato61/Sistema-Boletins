@@ -3,35 +3,33 @@
     include_once('class/Aluno.php');
     $a = new Aluno;
             
-                if(isset($_POST['matricula']) && isset($_POST['nome'])){
+                if(isset($_POST['matricula']) && isset($_POST['nome'])){//se for clicado em salvar
                     
                     $matricula = $_POST['matricula'];
                     $nome = $_POST['nome'];
-                    
                     
                     include_once('class/Mensagem.php');
                     
                     $m = new Mensagem;
                     
-                    
-                    if(!empty($nome)){
+                    if(!empty($nome)){//se o campo não for vazio
                         
-                        $msg = $a->verificar_disponibilidade($matricula, $nome);
+                        $msg = $a->verificar_disponibilidade($matricula, $nome);//verifica a disponibilidade desse nome
                         
-                        if($msg == "Pode atualizar o aluno!"){
+                        if($msg == "Pode atualizar o aluno!"){//se este nome está disponível
                         
-                            $a->editar($matricula, $nome);
-                            $m->setMensagem("Aluno atualizado com sucesso!");
-                            header("Location: index.php");
+                            $a->editar($matricula, $nome);//atualizando os dados do aluno
+                            $m->setMensagem("Aluno atualizado com sucesso!");//setando a mensagem a ser exibida ao ser redirecionado para a página com os dados dos alunos
+                            header("Location: index.php");//redirecionando para página de alunos
                         
-                        }else{
+                        }else{//se o nome não está disponível
                             
-                            $m->alert($msg);
+                            $m->alert($msg);//exibe mensagem de erro
                             
                         }
-                    }else{
+                    }else{//se o campo for vazio
                         
-                        $m->alert("Preencha o nome!");
+                        $m->alert("Preencha o nome!");//exibe mensagem para preencher o campo
                         
                     }
                 }

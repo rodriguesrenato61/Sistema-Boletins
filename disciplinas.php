@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    session_start();//iniciando a sessão
     
     include_once('class/Mensagem.php');
     include_once('class/Disciplina.php');
@@ -7,7 +7,7 @@
     $d = new Disciplina;
     $m = new Mensagem;
     
-    $m->getMensagem();
+    $m->getMensagem();//será exibida uma mensagem somente se houver alguma
     
 ?>
     <!DOCTYPE html>
@@ -27,10 +27,6 @@
             <!--importando javascript do bootstrap-->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-
-
-    
             
         </head>
         <body>
@@ -38,6 +34,7 @@
             <!--corpo da página-->
             
             <?php
+                //se foi escolhida alguma disciplina para remoção aparecerá uma janela modal de confirmação de exclusão
                 if(isset($_POST['remover'])){
                     $codigo = $_POST['remover'];
                     $d->modalExcluir($codigo);
@@ -89,17 +86,18 @@
                 </tr>
                 <?php
 
-                    if(isset($_GET['disciplina'])){
+                    if(isset($_GET['disciplina'])){//se os filtros de busca foram setados os registros serão filtrados
 
                         $nome = $_GET['disciplina'];
                         $registros = $d->exibir(0, $nome, null, 0);
 
-                    }else{
+                    }else{//senão todos os registros serão exibidos
 
                         $registros = $d->exibir(0, null, null, 0);
 
                     }
 
+                    //imprimindo os registros
                     while($registro = $registros->fetch()){
 
                         echo('<tr>');

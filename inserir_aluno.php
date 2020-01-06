@@ -38,7 +38,7 @@
             
             <?php
             
-                if(isset($_POST['nome'])){
+                if(isset($_POST['nome'])){//se foi clicado em inserir
                     $nome = $_POST['nome'];
                     
                     include_once('class/Aluno.php');
@@ -47,24 +47,24 @@
                     $m = new Mensagem;
                     $a = new Aluno;
                     
-                    if(!empty($nome)){
+                    if(!empty($nome)){//se o campo não for vazio
                         
-                        $msg = $a->valida_aluno($nome);
+                        $msg = $a->valida_aluno($nome);//valida o nome do aluno
                         
-                        if($msg == "Pode inserir o aluno!"){
+                        if($msg == "Pode inserir o aluno!"){//se o nome é válido para ser inserido
                         
-                            $a->inserir($nome);
-                            $m->setMensagem("Aluno inserido com sucesso!");
-                            header("Location: index.php");
+                            $a->inserir($nome);//inserindo o novo aluno
+                            $m->setMensagem("Aluno inserido com sucesso!");//setando a mensagem a ser exibida quando for redirecionado para página de exibição dos alunos
+                            header("Location: index.php");//redirecionando para página de exibição dos alunos
                         
-                        }else{
+                        }else{//se o nome não é válido para ser inserido
                             
-                            $m->alert($msg);
+                            $m->alert($msg);//exibe a mensagem de erro permanecendo na página
                             
                         }
-                    }else{
+                    }else{//se o campo estiver vazio
                         
-                        $m->alert("Preencha o nome!");
+                        $m->alert("Preencha o nome!");//exibindo mensagem de aviso para preencher o campo
                         
                     }
                 }

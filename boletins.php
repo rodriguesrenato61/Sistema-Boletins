@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    session_start();//iniciando a sessão
     
     include_once('class/Mensagem.php');
     include_once('class/Boletim.php');
@@ -7,7 +7,7 @@
     $m = new Mensagem;
     $b = new Boletim;
     
-    $m->getMensagem();
+    $m->getMensagem();//exibindo a mensagem somente se existir
     
 ?>
     <!DOCTYPE html>
@@ -35,6 +35,7 @@
             <!--corpo da página-->
 
             <?php
+                //se um boletim foi selecionado para exclusão aparecerá uma janela modal perguntando se deseja mesmo excluir
                 if(isset($_POST['remover'])){
                     $id = $_POST['remover'];
                     $b->modalExcluir($id);
@@ -128,16 +129,17 @@
                 </tr>
                 <?php
                     
-                    if(isset($_GET['aluno']) && isset($_GET['disciplina']) && isset($_GET['situacao'])){
+                    if(isset($_GET['aluno']) && isset($_GET['disciplina']) && isset($_GET['situacao'])){//se os filtros de busca foram setados
                         $aluno = $_GET['aluno'];
                         $disciplina = $_GET['disciplina'];
                         $situacao = $_GET['situacao'];
 
-                        $registros = $b->exibir(0, $aluno, $disciplina, $situacao);
-                    }else{
-                        $registros = $b->exibir(0, null, null, 0);
+                        $registros = $b->exibir(0, $aluno, $disciplina, $situacao);//carregando os registros de acordo com os filtros
+                    }else{//senão foram setados
+                        $registros = $b->exibir(0, null, null, 0);//carregando todos os registros
                     }
 
+                    //imprimindo os registros em uma tabela
                     while($registro = $registros->fetch()){
 
                         echo('<tr>');
@@ -165,7 +167,6 @@
 
                     }
                     
-
                 ?>
                                
                 </table>

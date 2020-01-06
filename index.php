@@ -1,6 +1,6 @@
 <?php
 
-    session_start();
+    session_start();//iniciando a sessão
     
     include_once('class/Mensagem.php');
     include_once('class/Aluno.php');
@@ -8,7 +8,7 @@
     $a = new Aluno;
     $m = new Mensagem;
     
-    $m->getMensagem();
+    $m->getMensagem();//será exibida somente se existir alguma mensagem
     
 ?>
     <!DOCTYPE html>
@@ -36,6 +36,7 @@
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
             
             <?php
+                //se foi clicado para remover uma aluno uma janela modal de confirmação será exibida
                 if(isset($_POST['remover'])){
                     $matricula = $_POST['remover'];
                     $a->modalExcluir($matricula);
@@ -95,17 +96,18 @@
                 </tr>
                     <?php
                         
-                        if(isset($_GET['aluno'])){
+                        if(isset($_GET['aluno'])){//se o filtro de busca foi setado os registros serão filtrados
 
                             $nome = $_GET['aluno'];
                             $registros = $a->exibir(0, $nome, null, 1);
 
-                        }else{
+                        }else{//senão irão aparecer todos os registros
 
                             $registros = $a->exibir(0, null, null, 1);
 
                         }
 
+                        //imprimindo os registros do banco
                         while($registro = $registros->fetch()){
 
                             echo('<tr>');

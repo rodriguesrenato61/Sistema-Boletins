@@ -57,22 +57,24 @@
             return $sql;//retornando o resultado da consulta
         }
 
+        //função que insere um novo aluno no banco de dados
         public function inserir($nome){
 
             global $sistema;
 
             $pdo = $sistema->getPdo();
 
-            $sql = $pdo->prepare("CALL insert_aluno(:nome)");
+            $sql = $pdo->prepare("CALL insert_aluno(:nome)");//chamando a procedure para inserir o novo aluno
             $sql->bindValue(":nome", $nome);
             $sql->execute();
         }
         
+        //função que verifica se um aluno é válido para ser inserido
         public function valida_aluno($nome){
             
-            $registros = $this->exibir(0, null, $nome, 0);
+            $registros = $this->exibir(0, null, $nome, 0);//verifica se já existe outro aluno com o mesmo nome
             
-            $linhas = $registros->rowCount();
+            $linhas = $registros->rowCount();//pega a quantidade de linhas retornadas do banco
             
             if($linhas > 0){
                 
@@ -84,12 +86,13 @@
                 
             }
             
-            return $msg;
+            return $msg;//retornando mensagem que diz se pode ou não inserir o novo aluno
         }
         
+        //função que verifica se um aluno pode assumir ou não determinado nome para atualizá-lo
         public function verificar_disponibilidade($matricula, $nome){
             
-            $registros = $this->exibir($matricula, null, $nome, 0);
+            $registros = $this->exibir($matricula, null, $nome, 0);//verifica se este nome já está em uso por outro aluno
             
             $linhas = $registros->rowCount();
             
@@ -106,30 +109,33 @@
             return $msg;
         }
 
+        //função para atualizar o nome do aluno
         public function editar($matricula, $nome){
 
             global $sistema;
 
             $pdo = $sistema->getPdo();
 
-            $sql = $pdo->prepare("CALL update_aluno(:matricula, :nome)");
+            $sql = $pdo->prepare("CALL update_aluno(:matricula, :nome)");//chamando a procedure para atualizar os dados do aluno
             $sql->bindValue(":matricula", (int) $matricula);
             $sql->bindValue(":nome", $nome);
             $sql->execute();
         }
 
+        //função para excluir um aluno do banco
         public function excluir($matricula){
 
             global $sistema;
 
             $pdo = $sistema->getPdo();
 
-            $sql = $pdo->prepare("CALL delete_aluno(:matricula)");
+            $sql = $pdo->prepare("CALL delete_aluno(:matricula)");//chamendo a procedure que exclui um aluno do banco
             $sql->bindValue(":matricula", (int) $matricula);
 
             $sql->execute();
         }
         
+        //função que retorna os dados do aluno com determinado número de matrícula
         public function get($matricula){
             
             global $sistema;
@@ -146,15 +152,16 @@
             return $aluno;
         }
         
+        //função para exibir uma janela modal para confirmar a exclusão ou não de um aluno
         public function modalExcluir($matricula){
             
             $msg = new Mensagem;
             
-            $aluno = $this->get($matricula);
+            $aluno = $this->get($matricula);//pegando os dados do aluno
             
-            $conteudo = "Tem certeza de que deseja excluir o aluno(a) ".$aluno['nome']."?";
+            $conteudo = "Tem certeza de que deseja excluir o aluno(a) ".$aluno['nome']."?";//conteúdo da mensagem da janela modal
             
-            $msg->modalExcluir("Excluir aluno", $conteudo, "alunos", $matricula);
+            $msg->modalExcluir("Excluir aluno", $conteudo, "alunos", $matricula);//chamando a função para exibir a janela modal
         }
 
     }

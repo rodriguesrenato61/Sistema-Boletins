@@ -13,12 +13,13 @@
 			
 			case 1:
 			
+				//se a exclusão de um aluno foi confirmada ele será excluído
 				if(isset($_POST['excluir'])){
 
 					$matricula = $_POST['excluir'];
-					$a->excluir($matricula);
-					$m->setMensagem("Aluno excluído com sucesso!");
-					header("Location: ../index.php");
+					$a->excluir($matricula);//excluindo o aluno
+					$m->setMensagem("Aluno excluído com sucesso!");//setando a mensagem de sucesso
+					header("Location: ../index.php");//redirecionando para página de alunos
 
 				}
 				

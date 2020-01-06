@@ -2,6 +2,7 @@
 include_once('class/Disciplina.php');
     $d = new Disciplina;
             
+                //mesmo esquema usado na atualização de um aluno
                 if(isset($_POST['codigo']) && isset($_POST['nome'])){
                     
                     $codigo = $_POST['codigo'];

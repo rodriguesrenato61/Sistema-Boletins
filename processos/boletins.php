@@ -13,6 +13,7 @@
 			
 			case 1:
 			
+				//mesmo esquema utilizado para excluir um aluno
 				if(isset($_POST['excluir'])){
 
 					$id = $_POST['excluir'];

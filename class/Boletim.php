@@ -1,10 +1,11 @@
 <?php
 
-    include_once('conexao.php');
-    include_once('Mensagem.php');
+    include_once('conexao.php');//importando a conexão com o banco
+    include_once('Mensagem.php');//importando a classe mensagem
 
     Class Boletim{
 
+        //função para exibir os dados dos boletins de acordo com os parâmetros de filtragem
         public function exibir($id, $aluno, $disciplina, $situacao){
 
             global $sistema;
@@ -61,6 +62,7 @@
             return $sql;
         }
 
+        //função para inserir um novo boletim no banco
         public function inserir($aluno, $disciplina, $nota1, $nota2, $nota3, $nota4){
 
             global $sistema;
@@ -79,6 +81,7 @@
 
         }
         
+        //função que verifica se uma nota é válida ou não
         public function valida_nota($nota){
             
             if(is_numeric($nota)){
@@ -101,6 +104,7 @@
             }
         }
         
+        //função que verifica se todos os dados do novo boletim são válidos
         public function valida_boletim($aluno, $disciplina, $nota1, $nota2, $nota3, $nota4){
             
             $aluno = (int) $aluno;
@@ -128,7 +132,7 @@
             return $msg;
         }
 
-
+        //função que atualiza os dados do boletim
         public function editar($id, $nota1, $nota2, $nota3, $nota4){
 
             global $sistema;
@@ -146,6 +150,7 @@
 
         }
 
+        //função que exclui um boletim do banco
         public function excluir($id){
 
             global $sistema;
@@ -158,6 +163,7 @@
             $sql->execute();
         }
         
+        //função que retorna os dados de um determinado boletim
         public function get($id){
             
             global $sistema;
@@ -174,6 +180,7 @@
             return $boletim;
         }
         
+        //função que exibe uma janela modal para exclusão de um boletim
         public function modalExcluir($id){
             
             $msg = new Mensagem;

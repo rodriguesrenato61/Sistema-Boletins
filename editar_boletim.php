@@ -2,6 +2,7 @@
 include_once('class/Boletim.php');
     $b = new Boletim;
             
+                //mesmo esquema usado na atualização de um aluno
                 if(isset($_POST['id']) && isset($_POST['matricula']) && isset($_POST['codigo']) && isset($_POST['nota1']) && isset($_POST['nota2']) && isset($_POST['nota3']) && isset($_POST['nota4'])){
                     
                     $id = $_POST['id'];
@@ -67,7 +68,8 @@ include_once('class/Boletim.php');
                         <?php
                         if(isset($_GET['id'])){
                             $id = (int) $_GET['id'];
-                            $registros = $b->exibir($id, null, null, 0);
+                            $registros = $b->exibir($id, null, null, 0);//pegando os dados desse boletim
+                            
                             while($registro = $registros->fetch()){
                                 $matricula = $registro['matricula'];
                                 $aluno = $registro['aluno'];
@@ -78,6 +80,7 @@ include_once('class/Boletim.php');
                                 $nota3 = $registro['nota3'];
                                 $nota4 = $registro['nota4'];
                             }
+                            //imprimindo os dados desse boletim
                             echo("<input type='hidden' name='id' id='id' value='".$id."'>");
                             echo("<input type='hidden' name='matricula' id='matricula' value='".$matricula."'>");
                             echo("<input type='hidden' name='codigo' id='codigo' value='".$codigo."'>");

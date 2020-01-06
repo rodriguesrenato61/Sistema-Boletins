@@ -39,6 +39,7 @@
             
             <?php
             
+                //mesmo esquema usado na inserção de um aluno
                 if(isset($_POST['nome'])){
                     $nome = $_POST['nome'];
                     

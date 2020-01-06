@@ -1,10 +1,11 @@
 <?php
 
-    include_once('conexao.php');
-    include_once('Mensagem.php');
+    include_once('conexao.php');//importando a conexão com o banco de dados
+    include_once('Mensagem.php');//importando a classe Mensagem
 
     Class Disciplina{
 
+        //função para exibir os dados das disciplinas de acordo com os parâmetros de filtragem
         public function exibir($codigo, $nome, $disciplina, $status_codigo){
 
             global $sistema;
@@ -54,6 +55,7 @@
             return $sql;
         }
 
+        //função para inserir uma nova disciplina no banco de dados
         public function inserir($nome){
 
             global $sistema;
@@ -65,6 +67,7 @@
             $sql->execute();
         }
         
+        //função que verifica se essa disciplina pode ser cadastrada
         public function valida_disciplina($nome){
             
             $registros = $this->exibir(0, null, $nome, 0);
@@ -84,6 +87,7 @@
             return $msg;
         }
         
+        //função que verifica a disponibilidade de uso do novo nome de uma disciplina a ser atualizada
         public function verificar_disponibilidade($codigo, $nome){
             
             $registros = $this->exibir($codigo, null, $nome, 0, 0);
@@ -103,6 +107,7 @@
             return $msg;
         }
 
+        //função que atualiza os dados das disciplinas
         public function editar($codigo, $nome){
 
             global $sistema;
@@ -116,6 +121,7 @@
             $sql->execute();
         }
 
+        //função que exclui uma disciplina do banco
         public function excluir($codigo){
 
             global $sistema;
@@ -128,6 +134,7 @@
             $sql->execute();
         }
 
+        //função que retorna somente as disciplinas que o aluno faz ou somente as disciplinas que o aluno não faz
         public function aluno_disciplinas($matricula, $status, $codigo){
 
             global $sistema;
@@ -150,6 +157,7 @@
             return $sql;
         }
         
+        //função que retorna os dados de uma determinada disciplina
         public function get($codigo){
             
             global $sistema;
@@ -166,6 +174,7 @@
             return $disciplina;
         }
         
+        //função que exibe uma janela modal para exclusão de uma determinada disciplina
         public function modalExcluir($codigo){
             
             $msg = new Mensagem;
