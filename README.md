@@ -1,6 +1,5 @@
 # Sistema Boletins
-Email: rodriguesrenato61@gmail.com
-Contatos: 98 999812283/ 98 988258639
+
 Sistema web feito com Php, MySQL, HTML, CSS e javascript para realizar gestão de boletins dos alunos com CRUD.
 Para utilizar o banco de dados importe o arquivo escola.sql para seu phpmyadmim ou qualquer outro SGBD que utilize.
 Para configurar o host, nome, usuário e senha do banco vá em class/conexao.php e faça as configurações de acordo com o banco que você fez. O sistema utiliza bootstrap e jquery por isso é necessário internet para seu funcionamento. Essa pequena aplicação já está funcional.
